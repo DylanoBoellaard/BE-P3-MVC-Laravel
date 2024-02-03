@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Magazijn extends Model
+class Allergeen extends Model
 {
     use HasFactory;
 
-    protected $table = 'magazijns';
+    protected $table = 'allergeens';
 
     protected $fillable = [
         'id',
-        'productsId',
-        'verpakkingsEenheid',
-        'aantalAanwezig'
+        'naam',
+        'omschrijving'
     ];
 }

@@ -20,3 +20,6 @@ Route::get('/', function () {
 
 // Magazijn overzicht
 Route::get('/index', [MagazijnController::class, 'index'])->name('magazijn.index');
+
+// Product levering info
+Route::get('/{productId}', [MagazijnController::class, 'levering'])->name('magazijn.levering');

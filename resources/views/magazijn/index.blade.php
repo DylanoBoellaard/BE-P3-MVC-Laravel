@@ -32,7 +32,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href="">
+                        <a href="{{route('magazijn.levering', [$product -> id])}}">
                             <img class="small-img" src="/img/question.png" alt="question.png">
                         </a>
                     </td>
