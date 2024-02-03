@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leveringsinformatie</title>
 </head>
-
 <body>
     <h1>Leveringsinformatie</h1>
 
@@ -21,6 +19,10 @@
             @endforeach
         </div>
 
+        <!-- If a message has been sent... -->
+        @if(isset($message))
+        <p>{{$message}}</p>
+        @else
         <table>
             <thead>
                 <tr>
@@ -41,7 +43,7 @@
                 </tr>
             </tbody>
         </table>
+        @endif
     </div>
 </body>
-
 </html>
