@@ -66,6 +66,15 @@ class MagazijnController extends Controller
             ->orderBy('allergeens.naam', 'asc')
             ->get();
 
+        // Check if the product has any allergenen - US2 - Scenario 2
+        $hasAllergenen = ProductsPerAllergeen::where('productsId', $productId)->exists();
+
+        // If hasAllergenen is false (product has no allergenen), send message and redirect
+        if (!$hasAllergenen) {
+            $message = "In dit product zitten geen stoffen die een allergische reactie kunnen veroorzaken";
+            return view('magazijn.allergenen', compact('message', 'productInfo'));
+        }
+
         // Normal redirect - US2 - Scenario 1
         return view('magazijn.allergenen', compact('productInfo', 'allergenenList'));
     }

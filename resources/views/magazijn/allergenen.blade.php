@@ -15,6 +15,9 @@
             <p><span>Barcode:</span> {{$productInfo->barcode}}</p>
         </div>
 
+        @if(isset($message))
+        <p>{{$message}}</p>
+        @else
         <table>
             <thead>
                 <tr>
@@ -31,6 +34,7 @@
                 </tr>
             </tbody>
         </table>
+        @endif
     </div>
 </body>
 </html>
