@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leveringsinformatie</title>
+    @vite(['resources/scss/magazijn/levering.scss', 'resources/scss/magazijn/global.scss'])
 </head>
-<body>
-    <h1>Leveringsinformatie</h1>
 
+<body>
     <div class="container">
+        <h1>Leveringsinformatie</h1>
         <!-- Display Leverancier info -->
         <div id="leverancierList">
             @foreach($leverancierList as $leverancier)
@@ -17,6 +19,7 @@
             <p><span>Leverancier nummer:</span> {{$leverancier->leverancierNummer}}</p>
             <p><span>Mobiel:</span> {{$leverancier->mobiel}}</p>
             @endforeach
+            <a href="{{route('magazijn.index')}}">Terug naar magazijn overzicht</a>
         </div>
 
         <!-- If a message has been sent... -->
@@ -66,4 +69,5 @@
         @endif
     </div>
 </body>
+
 </html>

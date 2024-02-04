@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overzicht Allergenen</title>
+    @vite(['resources/scss/magazijn/levering.scss', 'resources/scss/magazijn/global.scss'])
 </head>
-
 <body>
-    <h1>Overzicht Allergenen</h1>
-
     <div class="container">
+        <h1>Overzicht Allergenen</h1>
         <!-- Display product info info -->
         <div id="productInfo">
             <p><span>Naam:</span> {{$productInfo->naam}}</p>
             <p><span>Barcode:</span> {{$productInfo->barcode}}</p>
+            <a href="{{route('magazijn.index')}}">Terug naar magazijn overzicht</a>
         </div>
 
         @if(isset($message))
@@ -59,5 +58,4 @@
         @endif
     </div>
 </body>
-
 </html>

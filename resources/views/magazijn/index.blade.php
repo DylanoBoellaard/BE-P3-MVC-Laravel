@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magazijn overzicht</title>
+    @vite(['resources/scss/magazijn/index.scss', 'resources/scss/magazijn/global.scss'])
 </head>
 <body>
-    <h1>Overzicht magazijn Jamin</h1>
-
     <div class="container">
+        <h1>Overzicht magazijn Jamin</h1>
         <table>
             <thead>
                 <tr>
@@ -28,12 +28,12 @@
                     <td>{{$product->verpakkingsEenheid}}</td>
                     <td>{{$product->aantalAanwezig}}</td>
                     <td><a href="{{route('magazijn.allergenen', [$product -> id])}}">
-                            <img class="small-img" src="/img/Cross.png" alt="cross.png">
+                            <img class="small-img" src="/img/RedCross.png" alt="cross.png">
                         </a>
                     </td>
                     <td>
                         <a href="{{route('magazijn.levering', [$product -> id])}}">
-                            <img class="small-img" src="/img/question.png" alt="question.png">
+                            <img class="small-img" src="/img/Question.png" alt="question.png">
                         </a>
                     </td>
                     @endforeach
