@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MagazijnController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Magazijn overzicht
+Route::get('/index', [MagazijnController::class, 'index'])->name('magazijn.index');
+
+// Product levering info
+Route::get('/{productId}', [MagazijnController::class, 'levering'])->name('magazijn.levering');
