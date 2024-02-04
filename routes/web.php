@@ -22,4 +22,7 @@ Route::get('/', function () {
 Route::get('/index', [MagazijnController::class, 'index'])->name('magazijn.index');
 
 // Product levering info
-Route::get('/{productId}', [MagazijnController::class, 'levering'])->name('magazijn.levering');
+Route::get('/magazijn/{productId}', [MagazijnController::class, 'levering'])->name('magazijn.levering');
+
+// Product allergenen info
+Route::get('/{productId}', [MagazijnController::class, 'allergenen'])->name('magazijn.allergenen');

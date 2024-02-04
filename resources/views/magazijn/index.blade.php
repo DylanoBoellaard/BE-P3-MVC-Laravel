@@ -27,7 +27,7 @@
                     <td>{{$product->naam}}</td>
                     <td>{{$product->verpakkingsEenheid}}</td>
                     <td>{{$product->aantalAanwezig}}</td>
-                    <td><a href="">
+                    <td><a href="{{route('magazijn.allergenen', [$product -> id])}}">
                             <img class="small-img" src="/img/Cross.png" alt="cross.png">
                         </a>
                     </td>

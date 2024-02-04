@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Allergeen;
 use App\Models\Leverancier;
 use Illuminate\Http\Request;
 use App\Models\Magazijn;
@@ -51,5 +52,21 @@ class MagazijnController extends Controller
 
         // Normal redirect - US1 - Scenario 1
         return view('magazijn.levering', compact('product', 'leverancierList', 'leveringList'));
+    }
+
+    public function allergenen($productId)
+    {
+        // Get product details using the ID
+        $productInfo = Product::find($productId);
+
+        // Get allergenen info for associated product
+        $allergenenList = Allergeen::join('productsPerAllergeens', 'allergeens.id', '=', 'productsPerAllergeens.allergeensId')
+            ->where('productsPerAllergeens.productsId', $productId)
+            ->select('allergeens.*')
+            ->orderBy('allergeens.naam', 'asc')
+            ->get();
+
+        // Normal redirect - US2 - Scenario 1
+        return view('magazijn.allergenen', compact('productInfo', 'allergenenList'));
     }
 }
