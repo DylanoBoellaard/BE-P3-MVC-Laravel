@@ -31,4 +31,15 @@ body {
             }
         }
     }
+    form {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        label, input {
+            margin: 0.25rem;
+        }
+    }
+    span {
+        font-weight: bold;
+    }
 }

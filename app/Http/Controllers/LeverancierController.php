@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Leverancier;
 use App\Models\Magazijn;
 use App\Models\ProductsPerLeverancier;
-// use Illuminate\Contracts\Session\Session;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -71,7 +71,25 @@ class LeverancierController extends Controller
             'datum' => 'required|date',
         ]);
 
-        // Update the aantalAanwezig field in the magazijns table
+        /* ------------------------------------
+            OLDER DATE VALIDATION STUFF
+            Check if the filled-in date is older than today's date
+        */
+        $selectedDate = Carbon::parse($validatedData['datum']);
+        $today = Carbon::today();
+
+        if ($selectedDate->lt($today)) {
+            // If the filled-in date is older than today's date, flash error message to the session / page
+            Session::flash('error', 'The selected date cannot be older than today.');
+
+            // Redirect back to the toevoegenLevering page with filled-in values using the {{old()}} things in the value fields
+            return redirect()->back()->withInput();
+        }
+
+        /* ------------------------------------
+            REGULAR CORRECT FORM STUFF
+            Update the aantalAanwezig field in the magazijns table
+        */
         $magazijn = Magazijn::where('productsId', $productId)->firstOrFail();
         $magazijn->aantalAanwezig += $validatedData['aantal'];
         $magazijn->save();
@@ -84,16 +102,6 @@ class LeverancierController extends Controller
             'datumEerstVolgendeLevering' => $validatedData['datum'],
             'aantal' => $validatedData['aantal'],
         ]);
-
-        // Get leverancier geleverde producten details
-        $leveringList = DB::table('products')
-            ->select('products.id', 'products.naam', 'magazijns.aantalAanwezig', 'magazijns.verpakkingsEenheid', DB::raw('MAX(productsPerLeveranciers.datumLevering) as datumLevering'))
-            ->join('magazijns', 'products.id', '=', 'magazijns.productsId')
-            ->join('productsPerLeveranciers', 'products.id', '=', 'productsPerLeveranciers.productsId')
-            ->where('productsPerLeveranciers.leveranciersId', $leverancierId)
-            ->orderBy('magazijns.aantalAanwezig', 'desc')
-            ->groupBy('products.id', 'products.naam', 'magazijns.aantalAanwezig', 'magazijns.verpakkingsEenheid')
-            ->get();
 
         // Flash success message to the session / page
         Session::flash('success', 'Delivery added successfully');
