@@ -35,3 +35,9 @@ Route::get('/leverancier/index', [LeverancierController::class, 'index'])->name(
 
 // Door leverancier geleverde producten
 Route::get('/leverancier/geleverdeProducten/{leverancierId}', [LeverancierController::class, 'geleverdeProducten'])->name('leverancier.geleverdeProducten');
+
+// Toevoegen product levering pagina
+Route::get('/leverancier/toevoegenLevering/{productId}/{leverancierId}', [LeverancierController::class, 'toevoegenLevering'])->name('leverancier.toevoegenLevering');
+
+// Form submit page
+Route::post('/leverancier/storeLevering/{productId}/{leverancierId}', [LeverancierController::class, 'storeLevering'])->name('leverancier.storeLevering');

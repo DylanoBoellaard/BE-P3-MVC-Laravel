@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geleverde Producten</title>
     @vite(['resources/scss/magazijn/index.scss', 'resources/scss/magazijn/global.scss'])
 </head>
+
 <body>
     <div class="container">
         <h1>Geleverde Producten</h1>
@@ -16,6 +18,13 @@
             <p><span>Leverancier NR:</span> {{$leverancierInfo->leverancierNummer}}</p>
             <p><span>Mobiel:</span> {{$leverancierInfo->mobiel}}</p>
         </div>
+
+        @if(Session::has('success'))
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+        @endif
+
         @if($leveringList->isEmpty())
         <p>Redirecting in <span id="countdown">3</span> seconds.</p>
         <p>Dit bedrijf heeft tot nu toe geen producten geleverd aan Jamin</p>
@@ -58,8 +67,8 @@
                     <td>{{$levering->verpakkingsEenheid}}</td>
                     <td>{{$levering->datumLevering}}</td>
                     <td>
-                        <a href="{{route('leverancier.geleverdeProducten', [$levering -> naam])}}">
-                            <img class="small-img" src="/img/Box.png" alt="Box.png">
+                        <a href="{{route('leverancier.toevoegenLevering', [$levering -> id, $leverancierInfo->id])}}">
+                            <img class="small-img" src="/img/Plus-button.png" alt="Plus-button.png">
                         </a>
                     </td>
                     @endforeach
@@ -69,4 +78,5 @@
         @endif
     </div>
 </body>
+
 </html>

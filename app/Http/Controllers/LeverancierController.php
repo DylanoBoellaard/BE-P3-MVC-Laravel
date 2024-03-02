@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Leverancier;
+use App\Models\Magazijn;
 use App\Models\ProductsPerLeverancier;
+// use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class LeverancierController extends Controller
 {
@@ -49,5 +52,53 @@ class LeverancierController extends Controller
             'leverancierInfo' => $leverancierInfo,
             'leveringList' => $leveringList
         ]);
+    }
+
+    public function toevoegenLevering($productId, $leverancierId)
+    {
+        // Get leverancier info
+        $leverancierInfo = Leverancier::find($leverancierId);
+
+        // Return to view
+        return view('leverancier.toevoegenLevering', compact('leverancierInfo', 'productId'));
+    }
+
+    public function storeLevering(Request $request, $productId, $leverancierId)
+    {
+        // Validate the incoming request data
+        $validatedData = request()->validate([
+            'aantal' => 'required|integer|min:1',
+            'datum' => 'required|date',
+        ]);
+
+        // Update the aantalAanwezig field in the magazijns table
+        $magazijn = Magazijn::where('productsId', $productId)->firstOrFail();
+        $magazijn->aantalAanwezig += $validatedData['aantal'];
+        $magazijn->save();
+
+        // Add a new row in the productsPerLeveranciers table
+        productsPerLeverancier::create([
+            'leveranciersId' => $leverancierId,
+            'productsId' => $productId,
+            'datumLevering' => $validatedData['datum'],
+            'datumEerstVolgendeLevering' => $validatedData['datum'],
+            'aantal' => $validatedData['aantal'],
+        ]);
+
+        // Get leverancier geleverde producten details
+        $leveringList = DB::table('products')
+            ->select('products.id', 'products.naam', 'magazijns.aantalAanwezig', 'magazijns.verpakkingsEenheid', DB::raw('MAX(productsPerLeveranciers.datumLevering) as datumLevering'))
+            ->join('magazijns', 'products.id', '=', 'magazijns.productsId')
+            ->join('productsPerLeveranciers', 'products.id', '=', 'productsPerLeveranciers.productsId')
+            ->where('productsPerLeveranciers.leveranciersId', $leverancierId)
+            ->orderBy('magazijns.aantalAanwezig', 'desc')
+            ->groupBy('products.id', 'products.naam', 'magazijns.aantalAanwezig', 'magazijns.verpakkingsEenheid')
+            ->get();
+
+        // Flash success message to the session / page
+        Session::flash('success', 'Delivery added successfully');
+
+        // Redirect back to the geleverdeProducten page
+        return redirect()->route('leverancier.geleverdeProducten', ['leverancierId' => $leverancierId]);
     }
 }
