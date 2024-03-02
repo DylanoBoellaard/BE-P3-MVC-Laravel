@@ -80,7 +80,7 @@ class LeverancierController extends Controller
 
         if ($selectedDate->lt($today)) {
             // If the filled-in date is older than today's date, flash error message to the session / page
-            Session::flash('error', 'The selected date cannot be older than today.');
+            Session::flash('error', 'Deze datum ligt in het verleden, graag een nieuwe datum in voeren');
 
             // Redirect back to the toevoegenLevering page with filled-in values using the {{old()}} things in the value fields
             return redirect()->back()->withInput();
@@ -104,7 +104,7 @@ class LeverancierController extends Controller
         ]);
 
         // Flash success message to the session / page
-        Session::flash('success', 'Delivery added successfully');
+        Session::flash('success', 'Levering successvol toegevoegd');
 
         // Redirect back to the geleverdeProducten page
         return redirect()->route('leverancier.geleverdeProducten', ['leverancierId' => $leverancierId]);
