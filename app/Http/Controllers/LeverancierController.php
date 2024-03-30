@@ -236,7 +236,7 @@ class LeverancierController extends Controller
             }
 
             // Redirect with the custom error message
-            return redirect()->route('leverancier.wijzigen', $leverancierId)->with('error', $customErrorMessage);
+            return redirect()->route('leverancier.wijzigen', $leverancierId)->withErrors(['error' => $customErrorMessage]);
         }
     }
 }

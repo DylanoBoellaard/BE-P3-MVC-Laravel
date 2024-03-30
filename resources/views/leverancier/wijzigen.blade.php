@@ -16,9 +16,13 @@
         <div class="alert alert-success">
             {{ Session::get('success') }}
         </div>
-        @elseif(Session::has('error'))
+        @elseif ($errors->any())
         <div class="alert alert-error">
-            {{ Session::get('error') }}
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
         @endif
 
