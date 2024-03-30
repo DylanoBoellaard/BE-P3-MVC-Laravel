@@ -254,6 +254,104 @@ return new class extends Migration
                 'created_at' => now()->micro(6),
                 'updated_at' => now()->micro(6),
             ],
+            [
+                'naam' => 'Quality Street',
+                'contactPersoon' => 'Johan Nooij',
+                'leverancierNummer' => 'L1029234586',
+                'mobiel' => '06-23458456',
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
+        ]);
+
+        // Create table contact
+        Schema::dropIfExists('contact');
+        Schema::create('contact', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('leveranciersId') // Declare foreign key
+                ->references('id')
+                ->on('leveranciers')
+                ->onDelete('cascade'); // Cascade = if record in referenced table gets deleted, all related records in the current table will also be deleted
+            $table->string('straat', 50);
+            $table->string('huisnummer', 10);
+            $table->string('postcode', 10);
+            $table->string('stad', 50);
+            $table->boolean('isActief')->default(true);
+            $table->string('opmerkingen', 250)->nullable();
+            $table->timestamps(6);
+            $table->engine = 'InnoDB';
+        });
+
+        // Insert values in table contact
+        DB::table('contact')->insert([
+            [
+                'leveranciersId' => 1,
+                'straat' => 'Van Gilslaan',
+                'huisnummer' => '34',
+                'postcode' => '1045CB',
+                'stad' => 'Hilvarenbeek',
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
+            [
+                'leveranciersId' => 2,
+                'straat' => 'Den Dolderpad',
+                'huisnummer' => '2',
+                'postcode' => '1067RC',
+                'stad' => 'Utrecht',
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
+            [
+                'leveranciersId' => 3,
+                'straat' => 'Fredo Raalteweg',
+                'huisnummer' => '257',
+                'postcode' => '1236OP',
+                'stad' => 'Nijmegen',
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
+            [
+                'leveranciersId' => 4,
+                'straat' => 'Bertrand Russellhof',
+                'huisnummer' => '21',
+                'postcode' => '2034AP',
+                'stad' => 'Den Haag',
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
+            [
+                'leveranciersId' => 5,
+                'straat' => 'Leon van Bonstraat',
+                'huisnummer' => '213',
+                'postcode' => '145XC',
+                'stad' => 'Lunteren',
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
+            [
+                'leveranciersId' => 6,
+                'straat' => 'Bea van Lingenlaan',
+                'huisnummer' => '234',
+                'postcode' => '2197FG',
+                'stad' => 'Sint Pancras',
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
         ]);
 
         // Create table magazijns

@@ -216,7 +216,7 @@ class LeverancierController extends Controller
                     $customErrorMessage = "Leverancier nummer is te lang.";
                     break;
                 case (strpos($errorMessage, "Data too long for column 'mobiel'") !== false):
-                    $customErrorMessage = "Mobiel is te lang.";
+                    $customErrorMessage = "Het telefoonnummer is te lang.";
                     break;
                 case (strpos($errorMessage, "Data too long for column 'straat'") !== false):
                     $customErrorMessage = "Straat is te lang.";
