@@ -196,6 +196,10 @@ return new class extends Migration
             $table->string('contactPersoon', 100);
             $table->string('leverancierNummer', 100);
             $table->string('mobiel', 15);
+            $table->string('straat', 50);
+            $table->string('huisnummer', 10);
+            $table->string('postcode', 10);
+            $table->string('stad', 50);
             $table->boolean('isActief')->default(true);
             $table->string('opmerkingen', 250)->nullable();
             $table->timestamps(6);
