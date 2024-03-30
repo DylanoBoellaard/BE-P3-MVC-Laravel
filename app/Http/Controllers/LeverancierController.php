@@ -114,12 +114,22 @@ class LeverancierController extends Controller
     {
         // Get leverancier geleverde producten details
         $leverancierInfo = DB::table('leveranciers')
-            ->select('leveranciers.id', 'leveranciers.naam', 'leveranciers.contactPersoon', 'leveranciers.leverancierNummer', 'leveranciers.mobiel',
-            'contact.straat', 'contact.huisnummer', 'contact.postcode', 'contact.stad')
+            ->select(
+                'leveranciers.id',
+                'leveranciers.naam',
+                'leveranciers.contactPersoon',
+                'leveranciers.leverancierNummer',
+                'leveranciers.mobiel',
+                'contact.straat',
+                'contact.huisnummer',
+                'contact.postcode',
+                'contact.stad'
+            )
             ->join('contact', 'leveranciers.id', '=', 'contact.leveranciersId')
             ->where('leveranciers.id', $leverancierId)
             ->get();
 
+        // Redirect to details page
         return view('leverancier.wijzigen', [
             'leverancierInfo' => $leverancierInfo
         ]);
@@ -127,6 +137,63 @@ class LeverancierController extends Controller
 
     public function wijzigenGegevens($leverancierId)
     {
-        // Allow editing details from leveranciers and contact tables via $leverancierId
+        // Get leverancier and contact info
+        $leverancierInfo = DB::table('leveranciers')
+            ->select(
+                'leveranciers.id',
+                'leveranciers.naam',
+                'leveranciers.contactPersoon',
+                'leveranciers.leverancierNummer',
+                'leveranciers.mobiel',
+                'contact.straat',
+                'contact.huisnummer',
+                'contact.postcode',
+                'contact.stad'
+            )
+            ->join('contact', 'leveranciers.id', '=', 'contact.leveranciersId')
+            ->where('leveranciers.id', $leverancierId)
+            ->get();
+
+        // Redirect to form page
+        return view('leverancier.wijzigenGegevens', [
+            'leverancierInfo' => $leverancierInfo
+        ]);
+    }
+
+    public function updateLeverancier(Request $request, $leverancierId)
+    {
+        // Retrieve the data from the request sent by the form
+        $data = $request->only([
+            'naam',
+            'contactPersoon',
+            'leverancierNummer',
+            'mobiel',
+            'straat',
+            'huisnummer',
+            'postcode',
+            'stad'
+        ]);
+
+        // Find the leverancier record by leverancierId
+        $leverancier = Leverancier::findOrFail($leverancierId);
+
+        // Update leverancier fields
+        $leverancier->update([
+            'naam' => $data['naam'],
+            'contactPersoon' => $data['contactPersoon'],
+            'leverancierNummer' => $data['leverancierNummer'],
+            'mobiel' => $data['mobiel']
+        ]);
+
+        // Update contact fields
+        $leverancier->contact()->update([ // Finds first result in contact table based on leverancier found earlier. Requires model relationships to work
+            'straat' => $data['straat'],
+            'huisnummer' => $data['huisnummer'],
+            'postcode' => $data['postcode'],
+            'stad' => $data['stad']
+        ]);
+
+        // Redirect with success message
+        return redirect()->route('leverancier.wijzigen', $leverancierId)->with('success', 'De wijzigingen zijn doorgevoerd');
     }
 }

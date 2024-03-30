@@ -19,4 +19,10 @@ class Contact extends Model
         'postcode',
         'stad'
     ];
+
+    // Inverse One to one relationship with leverancier
+    public function leverancier()
+    {
+        return $this->belongsTo(Leverancier::class, 'leveranciersId');
+    }
 }

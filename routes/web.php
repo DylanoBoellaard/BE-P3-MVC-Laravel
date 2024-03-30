@@ -45,6 +45,8 @@ Route::post('/leverancier/storeLevering/{productId}/{leverancierId}', [Leveranci
 // Leverancier details wijzigen index pagina
 Route::get('/leverancier/wijzigen/{leverancierId}', [LeverancierController::class, 'wijzigen'])->name('leverancier.wijzigen');
 
-
-// Wijzigen gegevens leverancier
+// Wijzigen gegevens leverancier & contact tables
 Route::get('/leverancier/wijzigenGegevens/{leverancierId}', [LeverancierController::class, 'wijzigenGegevens'])->name('leverancier.wijzigenGegevens');
+
+// Page for handling form update request for gegevens leverancier & contact
+Route::put('/leverancier/updateLeverancier/{leverancierId}', [LeverancierController::class, 'updateLeverancier'])->name('leverancier.updateLeverancier');
