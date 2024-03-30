@@ -174,26 +174,69 @@ class LeverancierController extends Controller
             'stad'
         ]);
 
-        // Find the leverancier record by leverancierId
-        $leverancier = Leverancier::findOrFail($leverancierId);
+        try {
+            // Find the leverancier record by leverancierId
+            $leverancier = Leverancier::findOrFail($leverancierId);
 
-        // Update leverancier fields
-        $leverancier->update([
-            'naam' => $data['naam'],
-            'contactPersoon' => $data['contactPersoon'],
-            'leverancierNummer' => $data['leverancierNummer'],
-            'mobiel' => $data['mobiel']
-        ]);
+            // Update leverancier fields
+            $leverancier->update([
+                'naam' => $data['naam'],
+                'contactPersoon' => $data['contactPersoon'],
+                'leverancierNummer' => $data['leverancierNummer'],
+                'mobiel' => $data['mobiel']
+            ]);
 
-        // Update contact fields
-        $leverancier->contact()->update([ // Finds first result in contact table based on leverancier found earlier. Requires model relationships to work
-            'straat' => $data['straat'],
-            'huisnummer' => $data['huisnummer'],
-            'postcode' => $data['postcode'],
-            'stad' => $data['stad']
-        ]);
+            // Update contact fields
+            $leverancier->contact()->update([ // Finds first result in contact table based on leverancier found earlier. Requires model relationships to work
+                'straat' => $data['straat'],
+                'huisnummer' => $data['huisnummer'],
+                'postcode' => $data['postcode'],
+                'stad' => $data['stad']
+            ]);
 
-        // Redirect with success message
-        return redirect()->route('leverancier.wijzigen', $leverancierId)->with('success', 'De wijzigingen zijn doorgevoerd');
+            // Redirect with success message
+            return redirect()->route('leverancier.wijzigen', $leverancierId)->with('success', 'De wijzigingen zijn doorgevoerd.');
+        } catch (\Exception $e) {
+            // Parse the default exception message
+            $errorMessage = $e->getMessage();
+
+            // Initialize default error message
+            $customErrorMessage = "Er is een fout opgedtreden. De wijzigingen zijn niet doorgevoerd. Probeer het opnieuw.";
+
+            // Extract the specific error info based on the error message
+            // Needs optimising with loop?
+            switch (true) {
+                case (strpos($errorMessage, "Data too long for column 'naam'") !== false):
+                    $customErrorMessage = "Naam is te lang.";
+                    break;
+                case (strpos($errorMessage, "Data too long for column 'contactPersoon'") !== false):
+                    $customErrorMessage = "Contact persoon is te lang.";
+                    break;
+                case (strpos($errorMessage, "Data too long for column 'leverancierNummer'") !== false):
+                    $customErrorMessage = "Leverancier nummer is te lang.";
+                    break;
+                case (strpos($errorMessage, "Data too long for column 'mobiel'") !== false):
+                    $customErrorMessage = "Mobiel is te lang.";
+                    break;
+                case (strpos($errorMessage, "Data too long for column 'straat'") !== false):
+                    $customErrorMessage = "Straat is te lang.";
+                    break;
+                case (strpos($errorMessage, "Data too long for column 'huisnummer'") !== false):
+                    $customErrorMessage = "Huisnummer is te lang.";
+                    break;
+                case (strpos($errorMessage, "Data too long for column 'postcode'") !== false):
+                    $customErrorMessage = "Postcode is te lang.";
+                    break;
+                case (strpos($errorMessage, "Data too long for column 'stad'") !== false):
+                    $customErrorMessage = "Stad is te lang.";
+                    break;
+                default:
+                    // Nothing, keeps default message
+                    break;
+            }
+
+            // Redirect with the custom error message
+            return redirect()->route('leverancier.wijzigen', $leverancierId)->with('error', $customErrorMessage);
+        }
     }
 }

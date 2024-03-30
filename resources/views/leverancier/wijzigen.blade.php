@@ -16,6 +16,10 @@
         <div class="alert alert-success">
             {{ Session::get('success') }}
         </div>
+        @elseif(Session::has('error'))
+        <div class="alert alert-error">
+            {{ Session::get('error') }}
+        </div>
         @endif
 
         <table>
