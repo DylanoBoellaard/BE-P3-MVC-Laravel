@@ -112,10 +112,21 @@ class LeverancierController extends Controller
 
     public function wijzigen($leverancierId)
     {
-        // Get leverancier info
-        $leverancierInfo = Leverancier::find($leverancierId);
+        // Get leverancier geleverde producten details
+        $leverancierInfo = DB::table('leveranciers')
+            ->select('leveranciers.id', 'leveranciers.naam', 'leveranciers.contactPersoon', 'leveranciers.leverancierNummer', 'leveranciers.mobiel',
+            'contact.straat', 'contact.huisnummer', 'contact.postcode', 'contact.stad')
+            ->join('contact', 'leveranciers.id', '=', 'contact.leveranciersId')
+            ->where('leveranciers.id', $leverancierId)
+            ->get();
 
-        // Return to view
-        return view('leverancier.wijzigen', compact('leverancierInfo'));
+        return view('leverancier.wijzigen', [
+            'leverancierInfo' => $leverancierInfo
+        ]);
+    }
+
+    public function wijzigenGegevens($leverancierId)
+    {
+        // Allow editing details from leveranciers and contact tables via $leverancierId
     }
 }
