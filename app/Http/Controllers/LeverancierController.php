@@ -109,4 +109,13 @@ class LeverancierController extends Controller
         // Redirect back to the geleverdeProducten page
         return redirect()->route('leverancier.geleverdeProducten', ['leverancierId' => $leverancierId]);
     }
+
+    public function wijzigen($leverancierId)
+    {
+        // Get leverancier info
+        $leverancierInfo = Leverancier::find($leverancierId);
+
+        // Return to view
+        return view('leverancier.wijzigen', compact('leverancierInfo'));
+    }
 }

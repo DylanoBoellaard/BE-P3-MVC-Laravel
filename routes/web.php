@@ -41,3 +41,6 @@ Route::get('/leverancier/toevoegenLevering/{productId}/{leverancierId}', [Levera
 
 // Form submit page
 Route::post('/leverancier/storeLevering/{productId}/{leverancierId}', [LeverancierController::class, 'storeLevering'])->name('leverancier.storeLevering');
+
+// Wijzigen gegevens leverancier
+Route::get('/leverancier/wijzigen/{leverancierId}', [LeverancierController::class, 'wijzigen'])->name('leverancier.wijzigen');

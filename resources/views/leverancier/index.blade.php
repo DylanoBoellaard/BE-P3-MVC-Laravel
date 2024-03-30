@@ -18,6 +18,7 @@
                     <th>Mobiel</th>
                     <th>Aantal verschillende producten</th>
                     <th>Toon producten</th>
+                    <th>Wijzigen gegevens</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +31,11 @@
                     <td>{{$leverancier->aantal_verschillende_producten}}</td>
                     <td>
                         <a href="{{route('leverancier.geleverdeProducten', [$leverancier -> id])}}">
+                            <img class="small-img" src="/img/Box.png" alt="Box.png">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{route('leverancier.wijzigen', [$leverancier -> id])}}">
                             <img class="small-img" src="/img/Box.png" alt="Box.png">
                         </a>
                     </td>
