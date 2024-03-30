@@ -36,7 +36,7 @@
                     </td>
                     <td>
                         <a href="{{route('leverancier.wijzigen', [$leverancier -> id])}}">
-                            <img class="small-img" src="/img/Box.png" alt="Box.png">
+                            <img class="small-img" src="/img/Edit-icon.png" alt="Edit-icon.png">
                         </a>
                     </td>
                     @endforeach
