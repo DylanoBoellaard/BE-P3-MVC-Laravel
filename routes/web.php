@@ -17,7 +17,7 @@ use App\Http\Controllers\LeverancierController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 // Magazijn
 // Magazijn overzicht
@@ -41,3 +41,12 @@ Route::get('/leverancier/toevoegenLevering/{productId}/{leverancierId}', [Levera
 
 // Form submit page
 Route::post('/leverancier/storeLevering/{productId}/{leverancierId}', [LeverancierController::class, 'storeLevering'])->name('leverancier.storeLevering');
+
+// Leverancier details wijzigen index pagina
+Route::get('/leverancier/wijzigen/{leverancierId}', [LeverancierController::class, 'wijzigen'])->name('leverancier.wijzigen');
+
+// Wijzigen gegevens leverancier & contact tables
+Route::get('/leverancier/wijzigenGegevens/{leverancierId}', [LeverancierController::class, 'wijzigenGegevens'])->name('leverancier.wijzigenGegevens');
+
+// Page for handling form update request for gegevens leverancier & contact
+Route::put('/leverancier/updateLeverancier/{leverancierId}', [LeverancierController::class, 'updateLeverancier'])->name('leverancier.updateLeverancier');

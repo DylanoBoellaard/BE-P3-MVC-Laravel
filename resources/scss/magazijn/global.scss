@@ -12,6 +12,9 @@ body {
     }
     .alert-error {
         color: darkred;
+        li {
+            list-style: none;
+        }
     }
     table {
         border: solid 1px black;

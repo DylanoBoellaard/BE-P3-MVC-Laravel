@@ -18,4 +18,10 @@ class Leverancier extends Model
         'leverancierNummer',
         'mobiel'
     ];
+
+    // One to one relationship with contact
+    public function contact()
+    {
+        return $this->hasOne(Contact::class, 'leveranciersId');
+    }
 }

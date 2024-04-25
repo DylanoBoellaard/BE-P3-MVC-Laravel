@@ -1,0 +1,55 @@
+body {
+    div.container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        table {
+            display: flex;
+            flex-direction: row;
+            padding: 0;
+            tr {
+                display: flex;
+                flex-direction: column;
+
+                th {
+                    border-right: solid 1px black;
+                    border-top: solid 1px black;
+                }
+            }
+        }
+
+        form {
+            div.row {
+                display: flex;
+                justify-content: space-between;
+            }
+            div.navigation {
+                a {
+                    margin: 0;
+                }
+            }
+            
+        }
+
+        div.navigation {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            a {
+                margin: 0.5rem;
+                position: absolute;
+            }
+            a#wijzig {
+                left: 0;
+            }
+            a#terug,
+            a#home {
+                right: 0;
+            }
+            a#terug {
+                margin-right: 5rem;
+            }
+        }
+    }
+}
