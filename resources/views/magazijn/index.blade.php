@@ -21,23 +21,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($productList as $product) <!-- Foreach Loop to display all product details -->
+                @forelse($productList as $product) <!-- Foreach Loop to display all product details -->
                 <tr>
-                    <td>{{$product->barcode}}</td>
-                    <td>{{$product->naam}}</td>
-                    <td>{{$product->verpakkingsEenheid}}</td>
-                    <td>{{$product->aantalAanwezig}}</td>
-                    <td><a href="{{route('magazijn.allergenen', [$product -> id])}}">
-                            <img class="small-img" src="/img/RedCross.png" alt="cross.png">
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{route('magazijn.levering', [$product -> id])}}">
-                            <img class="small-img" src="/img/Question.png" alt="question.png">
-                        </a>
-                    </td>
-                    @endforeach
+                    <td>{{$product->id}}</td>
+                    <td>{{$product->name}}</td>
+                    <td>{{$product->price}}</td>
                 </tr>
+                @empty
+                <tr>
+                    <td>No products found</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

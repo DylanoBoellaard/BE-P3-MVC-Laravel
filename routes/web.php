@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AllergeenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MagazijnController;
 use App\Http\Controllers\LeverancierController;
@@ -50,3 +51,9 @@ Route::get('/leverancier/wijzigenGegevens/{leverancierId}', [LeverancierControll
 
 // Page for handling form update request for gegevens leverancier & contact
 Route::put('/leverancier/updateLeverancier/{leverancierId}', [LeverancierController::class, 'updateLeverancier'])->name('leverancier.updateLeverancier');
+
+
+// Allergenen
+// Allergeen overzicht
+Route::get('/allergeen/index', [AllergeenController::class, 'index'])->name('allergeen.index');
+Route::get('/allergeen/index/filter', [AllergeenController::class, 'index'])->name('allergeen.index.filter');
