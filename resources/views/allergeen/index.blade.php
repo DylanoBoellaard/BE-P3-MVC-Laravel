@@ -15,7 +15,7 @@
         <!-- Allergenen filter -->
         <form action="{{ route('allergeen.index.filter') }}" method="GET">
             @csrf
-            
+
             <select name="allergeen" id="allergeen">
                 <option value="Gluten">Gluten</option>
                 <option value="Gelatine">Gelatine</option>
@@ -26,6 +26,9 @@
 
             <input type="submit" value="Maak selectie">
         </form>
+
+        <!-- Reset button to remove the filter -->
+        <a href="{{ route('allergeen.index') }}" class="btn btn-secondary">Reset</a>
 
         <table>
             <thead>
