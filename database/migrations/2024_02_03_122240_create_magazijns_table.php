@@ -264,6 +264,16 @@ return new class extends Migration
                 'created_at' => now()->micro(6),
                 'updated_at' => now()->micro(6),
             ],
+            [
+                'naam' => 'Hom Ken Food',
+                'contactPersoon' => 'Hom Ken',
+                'leverancierNummer' => 'L1029234599',
+                'mobiel' => '06-23458477',
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ]
         ]);
 
         // Create table contact
