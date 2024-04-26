@@ -130,6 +130,14 @@ return new class extends Migration
                 'created_at' => now()->micro(6),
                 'updated_at' => now()->micro(6),
             ],
+            [
+                'naam' => 'Drop Ninjas',
+                'barcode' => '8719587323277',
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ]
         ]);
 
         // Create table allergeens
