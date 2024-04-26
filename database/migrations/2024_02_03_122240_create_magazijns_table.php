@@ -625,6 +625,14 @@ return new class extends Migration
                 'created_at' => now()->micro(6),
                 'updated_at' => now()->micro(6),
             ],
+            [
+                'productsId' => 14,
+                'allergeensId' => 5,
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ]
         ]);
 
         // Create table productsPerLeveranciers
