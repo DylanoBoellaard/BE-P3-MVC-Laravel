@@ -57,3 +57,6 @@ Route::put('/leverancier/updateLeverancier/{leverancierId}', [LeverancierControl
 // Allergeen overzicht
 Route::get('/allergeen/index', [AllergeenController::class, 'index'])->name('allergeen.index');
 Route::get('/allergeen/index/filter', [AllergeenController::class, 'index'])->name('allergeen.index.filter');
+
+// Overzicht leveranciers
+Route::get('/allergeen/overzicht_leveranciers/{productId}', [AllergeenController::class, 'overzicht_leveranciers'])->name('allergeen.overzicht_leveranciers');

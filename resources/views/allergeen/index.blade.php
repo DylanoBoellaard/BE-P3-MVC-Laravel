@@ -49,7 +49,7 @@
                     <td>{{$allergeen->allergenen_omschrijving}}</td>
                     <td>{{$allergeen->aantalAanwezig}}</td>
                     <td>
-                        <a href="{{route('allergeen.index', [$allergeen -> id])}}">
+                        <a href="{{route('allergeen.overzicht_leveranciers', [$allergeen -> id])}}">
                             <img class="small-img" src="/img/Box.png" alt="Box.png">
                         </a>
                     </td>
