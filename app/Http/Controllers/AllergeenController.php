@@ -43,18 +43,27 @@ class AllergeenController extends Controller
 
     public function overzicht_leveranciers($productId)
     {
+        // Retrieve DB details
         $leverancierList = DB::table('leveranciers')
-            ->select('leveranciers.id', 'leveranciers.naam', 'leveranciers.contactPersoon', 'leveranciers.mobiel',
-            'contact.stad', 'contact.straat', 'contact.huisnummer'
+            ->select(
+                'leveranciers.id',
+                'leveranciers.naam',
+                'leveranciers.contactPersoon',
+                'leveranciers.mobiel',
+                'contact.stad',
+                'contact.straat',
+                'contact.huisnummer'
             )
-            ->join('contact', 'leveranciers.id', '=', 'contact.leveranciersId')
+            ->leftJoin('contact', 'leveranciers.id', '=', 'contact.leveranciersId')
             ->join('productsPerLeveranciers', 'leveranciers.id', '=', 'productsPerLeveranciers.leveranciersId')
             ->where('productsPerLeveranciers.productsId', $productId)
             ->groupBy('leveranciers.id', 'contact.stad', 'contact.straat', 'contact.huisnummer')
             ->get();
-
-            return view('allergeen.overzicht_leveranciers', [
-                'leverancierList' => $leverancierList,
-            ]);
+    
+        // Return to view
+        return view('allergeen.overzicht_leveranciers', [
+            'leverancierList' => $leverancierList,
+        ]);
     }
+    
 }

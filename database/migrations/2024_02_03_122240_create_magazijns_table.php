@@ -137,7 +137,7 @@ return new class extends Migration
                 'opmerkingen' => null,
                 'created_at' => now()->micro(6),
                 'updated_at' => now()->micro(6),
-            ]
+            ],
         ]);
 
         // Create table allergeens
@@ -281,7 +281,7 @@ return new class extends Migration
                 'opmerkingen' => null,
                 'created_at' => now()->micro(6),
                 'updated_at' => now()->micro(6),
-            ]
+            ],
         ]);
 
         // Create table contact
@@ -507,6 +507,15 @@ return new class extends Migration
                 'created_at' => now()->micro(6),
                 'updated_at' => now()->micro(6),
             ],
+            [
+                'productsId' => 14,
+                'verpakkingsEenheid' => 0,
+                'aantalAanwezig' => null,
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
         ]);
 
         // Create table productsPerAllergeens
@@ -632,7 +641,7 @@ return new class extends Migration
                 'opmerkingen' => null,
                 'created_at' => now()->micro(6),
                 'updated_at' => now()->micro(6),
-            ]
+            ],
         ]);
 
         // Create table productsPerLeveranciers
@@ -839,6 +848,17 @@ return new class extends Migration
                 'productsId' => 13,
                 'datumLevering' => '2023-04-12',
                 'aantal' => 23,
+                'datumEerstVolgendeLevering' => null,
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
+            [
+                'leveranciersId' => 7,
+                'productsId' => 14,
+                'datumLevering' => '2023-04-14',
+                'aantal' => 20,
                 'datumEerstVolgendeLevering' => null,
                 'isActief' => 1,
                 'opmerkingen' => null,
