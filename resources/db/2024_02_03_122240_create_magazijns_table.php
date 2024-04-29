@@ -130,6 +130,14 @@ return new class extends Migration
                 'created_at' => now()->micro(6),
                 'updated_at' => now()->micro(6),
             ],
+            [
+                'naam' => 'Drop Ninjas',
+                'barcode' => '8719587323277',
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
         ]);
 
         // Create table allergeens
@@ -259,6 +267,16 @@ return new class extends Migration
                 'contactPersoon' => 'Johan Nooij',
                 'leverancierNummer' => 'L1029234586',
                 'mobiel' => '06-23458456',
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
+            [
+                'naam' => 'Hom Ken Food',
+                'contactPersoon' => 'Hom Ken',
+                'leverancierNummer' => 'L1029234599',
+                'mobiel' => '06-23458477',
                 'isActief' => 1,
                 'opmerkingen' => null,
                 'created_at' => now()->micro(6),
@@ -489,6 +507,15 @@ return new class extends Migration
                 'created_at' => now()->micro(6),
                 'updated_at' => now()->micro(6),
             ],
+            [
+                'productsId' => 14,
+                'verpakkingsEenheid' => 0,
+                'aantalAanwezig' => null,
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
         ]);
 
         // Create table productsPerAllergeens
@@ -601,6 +628,14 @@ return new class extends Migration
             ],
             [
                 'productsId' => 13,
+                'allergeensId' => 5,
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
+            [
+                'productsId' => 14,
                 'allergeensId' => 5,
                 'isActief' => 1,
                 'opmerkingen' => null,
@@ -813,6 +848,17 @@ return new class extends Migration
                 'productsId' => 13,
                 'datumLevering' => '2023-04-12',
                 'aantal' => 23,
+                'datumEerstVolgendeLevering' => null,
+                'isActief' => 1,
+                'opmerkingen' => null,
+                'created_at' => now()->micro(6),
+                'updated_at' => now()->micro(6),
+            ],
+            [
+                'leveranciersId' => 7,
+                'productsId' => 14,
+                'datumLevering' => '2023-04-14',
+                'aantal' => 20,
                 'datumEerstVolgendeLevering' => null,
                 'isActief' => 1,
                 'opmerkingen' => null,
