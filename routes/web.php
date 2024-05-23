@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AllergeenController;
+use App\Http\Controllers\geleverdeProductenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MagazijnController;
 use App\Http\Controllers\LeverancierController;
@@ -60,3 +61,9 @@ Route::get('/allergeen/index/filter', [AllergeenController::class, 'index'])->na
 
 // Overzicht leveranciers
 Route::get('/allergeen/overzicht_leveranciers/{productId}', [AllergeenController::class, 'overzicht_leveranciers'])->name('allergeen.overzicht_leveranciers');
+
+
+// Geleverde producten
+// Overzicht
+Route::get('/geleverdeProducten/index', [geleverdeProductenController::class, 'index'])->name('geleverdeProducten.index');
+Route::get('/geleverdeProducten/index/filter', [geleverdeProductenController::class, 'index'])->name('geleverdeProducten.index_filter');
