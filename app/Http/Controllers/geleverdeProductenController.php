@@ -19,11 +19,12 @@ class geleverdeProductenController extends Controller
                 'leveranciers.naam as leverancierNaam',
                 'leveranciers.contactPersoon',
                 'products.naam as productNaam',
+                'products.id',
                 DB::raw('SUM(productsPerLeveranciers.aantal) as totaalGeleverd')
             )
             ->join('leveranciers', 'productsPerLeveranciers.leveranciersId', '=', 'leveranciers.id')
             ->join('products', 'productsPerLeveranciers.productsId', '=', 'products.id')
-            ->groupBy('leveranciers.naam', 'leveranciers.contactPersoon', 'products.naam')
+            ->groupBy('leveranciers.naam', 'leveranciers.contactPersoon', 'products.naam', 'products.id')
             ->orderBy('products.naam', 'desc');
 
         // Use date input field details to check if user filled a date in to filter on a specific period
@@ -38,6 +39,41 @@ class geleverdeProductenController extends Controller
         // Return to view with the database & user submitted date results
         return view('geleverdeProducten.index', [
             'geleverdeProducten' => $geleverdeProducten,
+            'startDate' => $startDate,
+            'endDate' => $endDate
+        ]);
+    }
+
+    public function specificatieProduct($productId, $startDate, $endDate)
+    {
+        // Query to retrieve product name and allergens
+        $productDetails = DB::table('products')
+            ->select(
+                'products.naam as ProductNaam',
+                DB::raw('GROUP_CONCAT(allergeens.naam SEPARATOR ", ") as Allergenen')
+            )
+            ->join('productsPerAllergeens', 'products.id', '=', 'productsPerAllergeens.productsId')
+            ->join('allergeens', 'allergeens.id', '=', 'productsPerAllergeens.allergeensId')
+            ->where('products.id', $productId)
+            ->groupBy('products.id')
+            ->first();
+
+        // Query to retrieve product details with the delivery dates and amounts
+        $productDeliveryDetails = DB::table('productsPerLeveranciers')
+            ->select(
+                'productsPerLeveranciers.datumLevering',
+                'productsPerLeveranciers.aantal'
+            )
+            ->join('products', 'productsPerLeveranciers.productsId', '=', 'products.id')
+            ->where('products.id', $productId)
+            ->whereBetween('productsPerLeveranciers.datumLevering', [$startDate, $endDate])
+            ->distinct()
+            ->get();
+
+        // Return to view with all DB results & dates
+        return view('geleverdeProducten.specificatieProduct', [
+            'productDetails' => $productDetails,
+            'productDeliveryDetails' => $productDeliveryDetails,
             'startDate' => $startDate,
             'endDate' => $endDate
         ]);

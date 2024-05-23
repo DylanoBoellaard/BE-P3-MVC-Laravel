@@ -64,6 +64,9 @@ Route::get('/allergeen/overzicht_leveranciers/{productId}', [AllergeenController
 
 
 // Geleverde producten
-// Overzicht
+// Overzicht geleverde producten
 Route::get('/geleverdeProducten/index', [geleverdeProductenController::class, 'index'])->name('geleverdeProducten.index');
 Route::get('/geleverdeProducten/index/filter', [geleverdeProductenController::class, 'index'])->name('geleverdeProducten.index_filter');
+
+// Specificatie geleverde product
+Route::get('/geleverdeProducten/specificatieProduct/{productId}/{startDate}/{endDate}', [geleverdeProductenController::class, 'specificatieProduct'])->name('geleverdeProducten.specificatieProduct');

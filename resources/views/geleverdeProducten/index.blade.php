@@ -47,8 +47,8 @@
                     <td>{{$product->productNaam}}</td>
                     <td>{{$product->totaalGeleverd}}</td>
                     <td>
-                        <a href="{{route('geleverdeProducten.index')}}">
-                            <img class="small-img" src="/img/Box.png" alt="Box.png">
+                        <a href="{{route('geleverdeProducten.specificatieProduct', [$product->id, $startDate, $endDate])}}">
+                            <img class="small-img" src="/img/Question.png" alt="Question.png">
                         </a>
                     </td>
                     @endforeach
