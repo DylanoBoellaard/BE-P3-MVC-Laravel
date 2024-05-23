@@ -47,9 +47,17 @@
                     <td>{{$product->productNaam}}</td>
                     <td>{{$product->totaalGeleverd}}</td>
                     <td>
-                        <a href="{{route('geleverdeProducten.specificatieProduct', [$product->id, $startDate, $endDate])}}">
+                        <!-- If user submitted dates for the filter, send dates with product ID -->
+                        @if ($startDate && $endDate)
+                        <a href="{{ route('geleverdeProducten.specificatieProduct', [$product->id, $startDate, $endDate]) }}">
                             <img class="small-img" src="/img/Question.png" alt="Question.png">
                         </a>
+                        <!-- On first page load OR if user did not submit dates for the filter, send 'all' as dates and product ID -->
+                        @else
+                        <a href="{{ route('geleverdeProducten.specificatieProduct', [$product->id, 'all', 'all']) }}">
+                            <img class="small-img" src="/img/Question.png" alt="Question.png">
+                        </a>
+                        @endif
                     </td>
                     @endforeach
                 </tr>

@@ -10,10 +10,13 @@
     <div class="container">
         <h1>Specificatie geleverde producten</h1>
 
-        <!-- Display product info -->
+        <!-- Display product info
+             If user did not fiter dates, 'all' has been send to the page and all product deliveries will be shown
+             If user did filter dates, show only product deliveries within the set start- and enddate
+        -->
         <div id="productInfo">
-            <p><span>Startdatum:</span> {{ $startDate }}</p>
-            <p><span>Einddatum:</span> {{ $endDate }}</p>
+            <p><span>Startdatum:</span> {{ $startDate !== 'all' ? $startDate : 'Alle' }}</p>
+            <p><span>Einddatum:</span> {{ $endDate !== 'all' ? $endDate : 'Alle' }}</p>
 
             <!-- If product details exists, display details -->
             @if($productDetails)

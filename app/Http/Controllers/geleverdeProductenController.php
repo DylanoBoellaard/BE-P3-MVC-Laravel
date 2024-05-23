@@ -59,16 +59,22 @@ class geleverdeProductenController extends Controller
             ->first();
 
         // Query to retrieve product details with the delivery dates and amounts
-        $productDeliveryDetails = DB::table('productsPerLeveranciers')
+        $query = DB::table('productsPerLeveranciers')
             ->select(
                 'productsPerLeveranciers.datumLevering',
                 'productsPerLeveranciers.aantal'
             )
             ->join('products', 'productsPerLeveranciers.productsId', '=', 'products.id')
-            ->where('products.id', $productId)
-            ->whereBetween('productsPerLeveranciers.datumLevering', [$startDate, $endDate])
-            ->distinct()
-            ->get();
+            ->where('products.id', $productId);
+
+        // If dates are "empty" / not submitted by user and thus filled with 'all'
+        // If user submitted dates through filter, add where statement to filter DB results with the submitted dates
+        if ($startDate !== 'all' && $endDate !== 'all') {
+            $query->whereBetween('productsPerLeveranciers.datumLevering', [$startDate, $endDate]);
+        }
+
+        // Retrieve DB results regardless if user filtered the dates
+        $productDeliveryDetails = $query->distinct()->get();
 
         // Return to view with all DB results & dates
         return view('geleverdeProducten.specificatieProduct', [
