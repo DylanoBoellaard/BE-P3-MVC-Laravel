@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overizcht geleverde producten</title>
     @vite(['resources/scss/magazijn/index.scss', 'resources/scss/magazijn/global.scss'])
 </head>
+
 <body>
     <div class="container">
         <h1>Overzicht geleverde producten</h1>
@@ -39,9 +41,13 @@
                 </tr>
             </thead>
             <tbody>
+                @if($geleverdeProducten->isEmpty())
+                <tr>
+                    <td colspan="5">Er zijn geen leveringen geweest van producten in deze periode</td>
+                </tr>
+                @else
                 @foreach($geleverdeProducten as $product) <!-- Foreach Loop to display all product details -->
                 <tr>
-
                     <td>{{$product->leverancierNaam}}</td>
                     <td>{{$product->contactPersoon}}</td>
                     <td>{{$product->productNaam}}</td>
@@ -59,10 +65,12 @@
                         </a>
                         @endif
                     </td>
-                    @endforeach
                 </tr>
+                @endforeach
+                @endif
             </tbody>
         </table>
     </div>
 </body>
+
 </html>
