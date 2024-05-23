@@ -12,6 +12,7 @@
     <div class="container">
         <a href="{{route('magazijn.index')}}">Overzicht magazijn Jamin</a>
         <a href="{{route('leverancier.index')}}">Overzicht leveranciers Jamin</a>
+        <a href="{{route('allergeen.index')}}">Overzicht allergenen</a>
     </div>
 </body>
 
